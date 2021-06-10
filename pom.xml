@@ -15,6 +15,7 @@
 	<description>a spring boot Fix Engine  using quickfixJ library</description>
 	<properties>
 		<java.version>1.8</java.version>
+		<quickfixj.version>2.2.0</quickfixj.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -24,6 +25,16 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.quickfixj</groupId>
+			<artifactId>quickfixj-core</artifactId>
+			<version>${quickfixj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quickfixj</groupId>
+			<artifactId>quickfixj-messages-all</artifactId>
+			<version>${quickfixj.version}</version>
 		</dependency>
 
 		<dependency>
@@ -36,6 +47,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -1,6 +1,6 @@
 package com.strathclyde.fixengine.fixengine.database;
 
-import com.strathclyde.fixengine.fixengine.model.TradeDetails;
+import com.strathclyde.fixengine.fixengine.model.TraderDetails;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +12,10 @@ import java.util.Map;
 
 
 @SpringBootTest
-public class TradeServiceTest {
+public class TraderServiceTest {
 
     @Autowired
-    private TradeService tradeService;
+    private TraderService traderService;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -24,11 +24,11 @@ public class TradeServiceTest {
     public void signupTest() {
         // Given trade details are provided.
         String tradeEmployeeId = "E123";
-        TradeDetails tradeDetails = new TradeDetails(tradeEmployeeId, "Ram@gmail.com",
+        TraderDetails tradeDetails = new TraderDetails(tradeEmployeeId, "Ram@gmail.com",
                 "rAm1234#");
 
         // when api is called to store trader details.
-        tradeService.signup(tradeDetails);
+        traderService.signup(tradeDetails);
 
         //then trade details are present in the database.
         String checkSignUp = "select * from trader_details where trader_employee_id = ?";

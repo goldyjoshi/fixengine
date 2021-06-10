@@ -1,22 +1,12 @@
 package com.strathclyde.fixengine.fixengine.model;
 
-public class TradeDetails {
-    private String traderEmployeeId;
+public class TraderLoginDetails {
     private String traderEmailId;
     private String traderPassword;
 
-    public TradeDetails(final String traderEmployeeId, final String traderEmailId, final String traderPassword) {
-        this.traderEmployeeId = traderEmployeeId;
+    public TraderLoginDetails(String traderEmailId, String traderPassword) {
         this.traderEmailId = traderEmailId;
         this.traderPassword = traderPassword;
-    }
-
-    public String getTraderEmployeeId() {
-        return traderEmployeeId;
-    }
-
-    public void setTraderEmployeeId(String traderEmployeeId) {
-        this.traderEmployeeId = traderEmployeeId;
     }
 
     public String getTraderEmailId() {
