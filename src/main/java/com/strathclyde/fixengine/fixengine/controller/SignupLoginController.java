@@ -4,10 +4,7 @@ import com.strathclyde.fixengine.fixengine.database.TraderService;
 import com.strathclyde.fixengine.fixengine.model.TraderDetails;
 import com.strathclyde.fixengine.fixengine.model.TraderLoginDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /***
@@ -26,9 +23,20 @@ public class SignupLoginController {
         traderService.signup(traderDetails);
     }
 
-//    @GetMapping("/login")
-//    public void login(@RequestBody TraderLoginDetails traderLoginDetails) {
-//        System.out.println("Successful Login");
+    @GetMapping("/login")
+    public void login(@RequestBody TraderLoginDetails traderLoginDetails) {
+        System.out.println("Successful Login");
 //        traderService.login(traderLoginDetails);
+    }
+
+//    @PostMapping("/submittrade")
+//    public void submitTrade(@RequestBody Trade trade) {
+//
 //    }
+//
+//    @GetMapping("/getOrderStatus")
+//    public OrderStatus getOrderStatus(@RequestParam("orderId") orderId) {
+//
+//    }
+
 }

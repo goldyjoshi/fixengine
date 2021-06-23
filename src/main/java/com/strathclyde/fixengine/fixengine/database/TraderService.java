@@ -1,6 +1,7 @@
 package com.strathclyde.fixengine.fixengine.database;
 
 import com.strathclyde.fixengine.fixengine.model.TraderDetails;
+import com.strathclyde.fixengine.fixengine.model.TraderLoginDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,9 @@ public class TraderService {
         }
     }
 
-//    public void login()
+//    public void login(TraderLoginDetails traderLoginDetailsDetails) {
+//        String selectLogInDetails = "select trader_email, trader_password from trader_details where trader_email= ? ";
+//        int loginStatus = jdbcTemplate.update(selectLogInDetails, traderLoginDetailsDetails.getTraderEmailId());
+//
+//    }
 }
