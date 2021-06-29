@@ -14,10 +14,10 @@ public class OrderService {
     @Autowired
     private JdbcTemplate jdbcTemplateForOrder;
 
-    public void insertOrderInDatabase(final SingleOrderRequest singleOrderRequest, final String orderId, final Timestamp currentTimeStamp) {
+    public void insertOrderInDatabase(final SingleOrderRequest singleOrderRequest, final Timestamp currentTimeStamp) {
         String insertOrder = "insert into  order_detail (order_id, quantity, symbol, client_account_Id, order_date," +
                 " order_status, side) values(?, ?, ?, ?, ?, ?, ?)";
-        int orderInsertionStatus = jdbcTemplateForOrder.update(insertOrder, orderId, singleOrderRequest.getQuantity(),
+        int orderInsertionStatus = jdbcTemplateForOrder.update(insertOrder, singleOrderRequest.getOrderId(), singleOrderRequest.getQuantity(),
                 singleOrderRequest.getSymbol(), singleOrderRequest.getAccountId(), currentTimeStamp, "submitted", singleOrderRequest.getSide());
         if (orderInsertionStatus > 0) {
             System.out.println("Order details " + singleOrderRequest.toString() + " has been successfully inserted into database.");
@@ -30,11 +30,14 @@ public class OrderService {
     public List<SingleOrderRequest> getOrders() {
         List<SingleOrderRequest> orderList = new ArrayList<>();
         List<Map<String, Object>> orderResultSet = getOrdersFromDatabase();
-        SingleOrderRequest singleOrderRequest = null;
+        SingleOrderRequest singleOrderRequest;
         for (Map<String, Object> orderRow : orderResultSet) {
             singleOrderRequest = new SingleOrderRequest();
             for (String orderColumn : orderRow.keySet()) {
                 switch(orderColumn) {
+                    case "order_id":
+                        singleOrderRequest.setOrderId(orderRow.get(orderColumn).toString());
+                        break;
                     case "quantity":
                         singleOrderRequest.setQuantity((int)orderRow.get(orderColumn));
                         break;

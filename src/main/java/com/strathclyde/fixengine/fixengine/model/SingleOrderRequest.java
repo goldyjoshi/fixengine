@@ -1,10 +1,19 @@
 package com.strathclyde.fixengine.fixengine.model;
 
 public class SingleOrderRequest {
+    private String orderId;
     private String accountId;
     private int quantity;
     private String symbol;
     private String side;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
 
     public String getAccountId() {
         return accountId;
