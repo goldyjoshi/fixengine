@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.UUID;
 
 @SpringBootTest
@@ -20,13 +22,17 @@ public class OrderServiceTest {
         //Given
         SingleOrderRequest singleOrderRequest = new SingleOrderRequest();
         singleOrderRequest.setAccountId("testaccount");
-        String orderid = UUID.randomUUID().toString();
+        Date currentDate = new Date();
+        String orderId = UUID.randomUUID().toString();
+        singleOrderRequest.setOrderId(orderId);
+
+        Timestamp currentTimeStamp = new Timestamp(currentDate.getTime());
 
         //when
-//        orderService.insertOrderInDatabase(singleOrderRequest, orderid);
+        orderService.insertOrderInDatabase(singleOrderRequest, currentTimeStamp);
 
         //Then check order inserted in database
-//        jdbcTemplate.query("select * from ordertable" whetwe otder = ?)
+//        jdbcTemplate.query("select * from order_detail where order_id = ?");
 
 
     }

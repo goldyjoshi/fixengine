@@ -23,11 +23,11 @@ public class SignupLoginController {
         traderService.signup(traderDetails);
     }
 
-    @GetMapping("/login")
-    public void login(@RequestBody TraderLoginDetails traderLoginDetails) {
-        System.out.println("Successful Login");
+//    @GetMapping("/login")
+//    public void login(@RequestBody TraderLoginDetails traderLoginDetails) {
+//        System.out.println("Successful Login");
 //        traderService.login(traderLoginDetails);
-    }
+//    }
 
 //    @PostMapping("/submittrade")
 //    public void submitTrade(@RequestBody Trade trade) {

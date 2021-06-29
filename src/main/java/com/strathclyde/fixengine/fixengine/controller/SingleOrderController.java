@@ -25,16 +25,15 @@ public class SingleOrderController {
 
     @PostMapping("/submitorder")
     public void submitOrder(@RequestBody SingleOrderRequest singleOrderRequest) {
-        String orderId = UUID.randomUUID().toString();
         Date currentDate = new Date();
         Timestamp currentTimeStamp = new Timestamp(currentDate.getTime());
-        fixMessageService.createAndSendSingleOrderMessage(singleOrderRequest, orderId, currentTimeStamp.toString());
+        fixMessageService.createAndSendSingleOrderMessage(singleOrderRequest, currentTimeStamp.toString());
 
-        orderService.insertOrderInDatabase(singleOrderRequest, orderId, currentTimeStamp);
+        orderService.insertOrderInDatabase(singleOrderRequest, currentTimeStamp);
 
     }
 
-    @GetMapping
+    @GetMapping("/orders")
     public List<SingleOrderRequest> getOrders() {
         List<SingleOrderRequest> orderList = orderService.getOrders();
         return orderList;
