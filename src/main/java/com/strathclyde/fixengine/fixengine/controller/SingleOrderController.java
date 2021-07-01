@@ -25,12 +25,8 @@ public class SingleOrderController {
 
     @PostMapping("/submitorder")
     public void submitOrder(@RequestBody SingleOrderRequest singleOrderRequest) {
-        Date currentDate = new Date();
-        Timestamp currentTimeStamp = new Timestamp(currentDate.getTime());
-        fixMessageService.createAndSendSingleOrderMessage(singleOrderRequest, currentTimeStamp.toString());
-
-        orderService.insertOrderInDatabase(singleOrderRequest, currentTimeStamp);
-
+        orderService.insertOrderInDatabase(singleOrderRequest);
+        fixMessageService.createAndSendSingleOrderMessage(singleOrderRequest);
     }
 
     @GetMapping("/orders")

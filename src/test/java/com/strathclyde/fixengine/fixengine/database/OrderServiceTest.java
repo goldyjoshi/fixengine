@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @SpringBootTest
@@ -22,18 +24,23 @@ public class OrderServiceTest {
         //Given
         SingleOrderRequest singleOrderRequest = new SingleOrderRequest();
         singleOrderRequest.setAccountId("testaccount");
-        Date currentDate = new Date();
         String orderId = UUID.randomUUID().toString();
         singleOrderRequest.setOrderId(orderId);
 
-        Timestamp currentTimeStamp = new Timestamp(currentDate.getTime());
-
         //when
-        orderService.insertOrderInDatabase(singleOrderRequest, currentTimeStamp);
+        orderService.insertOrderInDatabase(singleOrderRequest);
 
         //Then check order inserted in database
-//        jdbcTemplate.query("select * from order_detail where order_id = ?");
+        List<Map<String, Object>> orderResultSet = jdbcTemplate.queryForList("select * from order_detail where order_id = " + orderId);
+        for(Map<String, Object>  orderRow : orderResultSet) {
+            for (String orderColumn: orderRow.keySet()) {
+                if(orderColumn == orderId ) {
 
+                }
+
+
+            }
+        }
 
     }
 

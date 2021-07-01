@@ -55,8 +55,7 @@ public class FixMessageService {
 
     }
 
-    public void createAndSendSingleOrderMessage(final SingleOrderRequest singleOrderRequest,
-                                                final String currentTime) {
+    public void createAndSendSingleOrderMessage(final SingleOrderRequest singleOrderRequest) {
         char side = "BUY".equalsIgnoreCase(singleOrderRequest.getSide()) ? Side.BUY : Side.SELL;
         NewOrderSingle newOrderSingle = new NewOrderSingle(
                 new ClOrdID(singleOrderRequest.getOrderId()),

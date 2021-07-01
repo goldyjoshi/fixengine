@@ -1,8 +1,19 @@
 package com.strathclyde.fixengine.fixengine.app;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import quickfix.*;
 
+@Component
 public class ApplicationImpl implements Application {
+
+
+    private FixMessageHandler fixMessageHandler;
+
+    public ApplicationImpl(final FixMessageHandler fixMessageHandler) {
+        super();
+        this.fixMessageHandler = fixMessageHandler;
+    }
 
     /***
      * This method will be called on creation of Fix session.
@@ -65,11 +76,13 @@ public class ApplicationImpl implements Application {
 
     @Override
     public void toApp(Message message, SessionID sessionID) throws DoNotSend {
-        System.out.println("Business message " + message + " sent with session Id : " + sessionID );
+        System.out.println("Business message sent " + message + " with session Id : " + sessionID );
+        fixMessageHandler.handleOutgoingMessage(message);
     }
 
     @Override
     public void fromApp(Message message, SessionID sessionID) throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType {
-        System.out.println("Business message " + message + " received with session Id : " + sessionID );
+        System.out.println("Business message received " + message + " with session Id : " + sessionID );
+        fixMessageHandler.handleIncomingMessage(message);
     }
 }
