@@ -22,6 +22,9 @@ public class FixEngineInitialization {
     @Value("${app.fix.type}")
     private String fixType;
 
+    @Autowired
+    private FixMessageHandler fixMessageHandler;
+
 // @value not working with constructor because spring injecting value before creation of object.
 //    public FixEngineInitialization() {
 //        InputStream configurationAsStream = getConfigFromFile();
@@ -44,7 +47,7 @@ public class FixEngineInitialization {
         /***
          * Create an object of ApplicationImpl Class.
          */
-        ApplicationImpl application = new ApplicationImpl();
+        ApplicationImpl application = new ApplicationImpl(fixMessageHandler);
 
         /***
          * Create an object of MessageFactory Class.

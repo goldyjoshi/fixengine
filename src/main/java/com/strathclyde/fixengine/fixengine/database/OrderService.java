@@ -14,17 +14,34 @@ public class OrderService {
     @Autowired
     private JdbcTemplate jdbcTemplateForOrder;
 
-    public void insertOrderInDatabase(final SingleOrderRequest singleOrderRequest, final Timestamp currentTimeStamp) {
+    public void insertOrderInDatabase(final SingleOrderRequest singleOrderRequest) {
+        Date currentDate = new Date();
+        Timestamp currentTimeStamp = new Timestamp(currentDate.getTime());
         String insertOrder = "insert into  order_detail (order_id, quantity, symbol, client_account_Id, order_date," +
-                " order_status, side) values(?, ?, ?, ?, ?, ?, ?)";
-        int orderInsertionStatus = jdbcTemplateForOrder.update(insertOrder, singleOrderRequest.getOrderId(), singleOrderRequest.getQuantity(),
-                singleOrderRequest.getSymbol(), singleOrderRequest.getAccountId(), currentTimeStamp, "submitted", singleOrderRequest.getSide());
+                " order_status, side, quantity_executed) values(?, ?, ?, ?, ?, ?, ?,?)";
+        int orderInsertionStatus = jdbcTemplateForOrder.update(insertOrder, singleOrderRequest.getOrderId(),
+                singleOrderRequest.getQuantity(), singleOrderRequest.getSymbol(), singleOrderRequest.getAccountId(),
+                currentTimeStamp, singleOrderRequest.getStatus(), singleOrderRequest.getSide(), singleOrderRequest.getExecutedQuantity());
         if (orderInsertionStatus > 0) {
             System.out.println("Order details " + singleOrderRequest.toString() + " has been successfully inserted into database.");
         } else {
             System.out.println("insertion into database for order:  " + singleOrderRequest.toString() + " has been failed.");
         }
 
+    }
+
+    public void updateOrderStatus(final String orderId, final String statusToBeUpdated) {
+        String updateOrder = "update order_detail " +
+                "set order_status = ?" +
+                "where order_id = ?";
+
+        int orderInsertionStatus = jdbcTemplateForOrder.update(updateOrder, statusToBeUpdated, orderId);
+
+        if (orderInsertionStatus > 0) {
+            System.out.println("Order id " + orderId+ " has been successfully updated with status " +  statusToBeUpdated);
+        } else {
+            System.out.println("failed to update order : " + orderId);
+        }
     }
 
     public List<SingleOrderRequest> getOrders() {
@@ -39,7 +56,7 @@ public class OrderService {
                         singleOrderRequest.setOrderId(orderRow.get(orderColumn).toString());
                         break;
                     case "quantity":
-                        singleOrderRequest.setQuantity((int)orderRow.get(orderColumn));
+                        singleOrderRequest.setQuantity(Double.valueOf(orderRow.get(orderColumn).toString()));
                         break;
                     case "symbol":
                         singleOrderRequest.setSymbol(orderRow.get(orderColumn).toString());
@@ -49,6 +66,12 @@ public class OrderService {
                         break;
                     case "side":
                         singleOrderRequest.setSide(orderRow.get(orderColumn).toString());
+                        break;
+                    case "order_status":
+                        singleOrderRequest.setStatus(orderRow.get(orderColumn).toString());
+                        break;
+                    case "quantity_executed":
+                        singleOrderRequest.setExecutedQuantity(Double.valueOf(orderRow.get(orderColumn).toString()));
                         break;
                     default:
                         System.out.println("column not supported");

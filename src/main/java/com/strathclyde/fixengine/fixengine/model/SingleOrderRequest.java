@@ -3,9 +3,27 @@ package com.strathclyde.fixengine.fixengine.model;
 public class SingleOrderRequest {
     private String orderId;
     private String accountId;
-    private int quantity;
+    private double quantity;
+    private double executedQuantity;
+    private String status;
     private String symbol;
     private String side;
+
+    public double getExecutedQuantity() {
+        return executedQuantity;
+    }
+
+    public void setExecutedQuantity(double executedQuantity) {
+        this.executedQuantity = executedQuantity;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getOrderId() {
         return orderId;
@@ -23,11 +41,11 @@ public class SingleOrderRequest {
         this.accountId = accountId;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
