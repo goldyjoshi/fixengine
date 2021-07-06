@@ -3,12 +3,22 @@ package com.strathclyde.fixengine.fixengine.model;
 public class ExecutionRequest {
     private String orderId;
     private String accountId;
-    private double totalQuantity;
     private String symbol;
     private String side;
-    private int executedQuantity;
+    private double totalQuantity; // total order quantity.
+    private double quantityRequestedForExec; // current request for execution.
+    private double previousExecQuantity;   // total of previously executed quantity.
     private double executionPrice;
     private String execType;
+
+
+    public double getPreviousExecQuantity() {
+        return previousExecQuantity;
+    }
+
+    public void setPreviousExecQuantity(double previousExecQuantity) {
+        this.previousExecQuantity = previousExecQuantity;
+    }
 
     public String getExecType() {
         return execType;
@@ -58,12 +68,12 @@ public class ExecutionRequest {
         this.side = side;
     }
 
-    public int getExecutedQuantity() {
-        return executedQuantity;
+    public double getQuantityRequestedForExec() {
+        return quantityRequestedForExec;
     }
 
-    public void setExecutedQuantity(int executedQuantity) {
-        this.executedQuantity = executedQuantity;
+    public void setQuantityRequestedForExec(double quantityRequestedForExec) {
+        this.quantityRequestedForExec = quantityRequestedForExec;
     }
 
     public double getExecutionPrice() {

@@ -16,33 +16,40 @@ import java.util.UUID;
 public class FixMessageService {
 
     public void createAndSendExecutionReport(final ExecutionRequest executionRequest) {
+        String incomingExecType = executionRequest.getExecType();
         char side = "BUY".equalsIgnoreCase(executionRequest.getSide()) ? Side.BUY : Side.SELL;
-        char execTransType;
-        char execType;
-        char orderStatus;
-        if ("new".equalsIgnoreCase(executionRequest.getExecType())) {
-            execTransType = ExecTransType.NEW;
-            execType = ExecType.NEW;
-            orderStatus = OrdStatus.NEW;
-        } else {
-            System.out.println(executionRequest.getExecType() +" Execution type is not supported.");
-            return;
+        char execType = ExecType.NEW;
+        char orderStatus = OrdStatus.NEW;
+        switch (incomingExecType) {
+            case "Partial":
+                execType = ExecType.PARTIAL_FILL;
+                orderStatus = OrdStatus.PARTIALLY_FILLED;
+                break;
+            case "Full":
+                execType = ExecType.FILL;
+                orderStatus = OrdStatus.FILLED;
+                break;
+            default:
+                System.out.println(incomingExecType +" Execution type is not supported.");
         }
-
         String execId = UUID.randomUUID().toString();
+        double cumulativeQuantity = executionRequest.getPreviousExecQuantity() +
+                executionRequest.getQuantityRequestedForExec();
+        double leaveQuantity = executionRequest.getTotalQuantity() - cumulativeQuantity;
         ExecutionReport executionReport = new ExecutionReport(
             new OrderID(executionRequest.getOrderId()),
                 new ExecID(execId),
-                new ExecTransType(execTransType),
+                new ExecTransType(ExecTransType.NEW),
                 new ExecType(execType),
                 new OrdStatus(orderStatus),
                 new Symbol(executionRequest.getSymbol()),
                 new Side(side),
-                new LeavesQty(executionRequest.getTotalQuantity()),
-                new CumQty(0.0),
+                new LeavesQty(leaveQuantity),
+                new CumQty(cumulativeQuantity),
                 new AvgPx(executionRequest.getExecutionPrice())
         );
         executionReport.setString(1, executionRequest.getAccountId());
+        executionReport.setString(38, String.valueOf(executionRequest.getTotalQuantity()));
         Message.Header header = executionReport.getHeader();
         header.setField(new BeginString("FIX.4.2"));
         header.setField(new SenderCompID("INVESTMENT_BANK"));

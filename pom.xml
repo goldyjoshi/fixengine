@@ -47,6 +47,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.powermock/powermock-module-junit5 -->
+<!--		<dependency>-->
+<!--			<groupId>org.powermock</groupId>-->
+<!--			<artifactId>powermock-module-junit5</artifactId>-->
+<!--&lt;!&ndash;			<version>1.6.4</version>&ndash;&gt;-->
+<!--		</dependency>-->
+
 
 	</dependencies>
 
