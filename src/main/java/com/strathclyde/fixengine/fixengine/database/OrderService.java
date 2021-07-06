@@ -30,17 +30,38 @@ public class OrderService {
 
     }
 
-    public void updateOrderStatus(final String orderId, final String statusToBeUpdated) {
+    public void updateOrderStatus(final String orderId, final String statusToBeUpdated, final double totalExecutedQuantity) {
         String updateOrder = "update order_detail " +
                 "set order_status = ?" +
-                "where order_id = ?";
-
+                " where order_id = ? ";
         int orderInsertionStatus = jdbcTemplateForOrder.update(updateOrder, statusToBeUpdated, orderId);
-
         if (orderInsertionStatus > 0) {
-            System.out.println("Order id " + orderId+ " has been successfully updated with status " +  statusToBeUpdated);
+            StringBuilder message = new StringBuilder();
+            message.append("Order id ").
+                    append(orderId)
+                    .append(" has been successfully updated with status : " )
+                    .append(statusToBeUpdated)
+                    .append( "and quantity : ")
+                    .append(totalExecutedQuantity);
+            System.out.println(message);
         } else {
-            System.out.println("failed to update order : " + orderId);
+            System.out.println("Failed to update order : " + orderId);
+        }
+            String updateOrderQty = "update order_detail " +
+                    "set quantity_executed = ?" +
+                    " where order_id = ? ";
+            int orderInsertionQty = jdbcTemplateForOrder.update(updateOrderQty, totalExecutedQuantity, orderId);
+            if (orderInsertionQty > 0) {
+                StringBuilder messageQty = new StringBuilder();
+                messageQty.append("Order id ").
+                        append(orderId)
+                        .append(" has been successfully updated with status : " )
+                        .append(statusToBeUpdated)
+                        .append( "and quantity : ")
+                        .append(totalExecutedQuantity);
+                System.out.println(messageQty);
+        } else {
+            System.out.println("Failed to update order : " + orderId);
         }
     }
 

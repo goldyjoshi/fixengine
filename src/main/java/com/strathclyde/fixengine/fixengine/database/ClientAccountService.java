@@ -19,7 +19,7 @@ public class ClientAccountService {
         List<Map<String, Object>> resultList = retrieveAccountFromDatabase();
         for(Map<String, Object> row : resultList) {
             for(String column : row.keySet()) {
-                if (column.equalsIgnoreCase("clinet_account_id")) {
+                if (column.equalsIgnoreCase("client_account_id")) {
                     accountList.add(row.get(column).toString());
                 }
             }
@@ -28,7 +28,7 @@ public class ClientAccountService {
     }
 
     private List<Map<String, Object>>  retrieveAccountFromDatabase() {
-        String sql = "select clinet_account_id from client_account";
+        String sql = "select client_account_id from client_account";
         List<Map<String, Object>> resultList = jdbcTemplateForAccountRetrieval.queryForList(sql);
         return resultList;
     }
