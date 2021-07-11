@@ -1,27 +1,46 @@
 package com.strathclyde.fixengine.fixengine.model;
 
 public class TraderLoginDetails {
-    private String traderEmailId;
-    private String traderPassword;
+    private String loginStatus;
+    private String loginRole;
+    private String employeeId;
 
-    public TraderLoginDetails(String traderEmailId, String traderPassword) {
-        this.traderEmailId = traderEmailId;
-        this.traderPassword = traderPassword;
+    public TraderLoginDetails(final String employeeId, final String loginStatus, final String loginRole ) {
+        this.employeeId = employeeId;
+        this.loginStatus = loginStatus;
+        this.loginRole = loginRole;
     }
 
-    public String getTraderEmailId() {
-        return traderEmailId;
+    @Override
+    public String toString() {
+        return "TraderLoginDetails{" +
+                "traderEmailId='" + loginStatus + '\'' +
+                ", traderPassword='" + loginRole + '\'' +
+                ", employeeId='" + employeeId + '\'' +
+                '}';
     }
 
-    public void setTraderEmailId(String traderEmailId) {
-        this.traderEmailId = traderEmailId;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public String getTraderPassword() {
-        return traderPassword;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public void setTraderPassword(String traderPassword) {
-        this.traderPassword = traderPassword;
+    public String getLoginStatus() {
+        return loginStatus;
+    }
+
+    public void setLoginStatus(String loginStatus) {
+        this.loginStatus = loginStatus;
+    }
+
+    public String getLoginRole() {
+        return loginRole;
+    }
+
+    public void setLoginRole(String loginRole) {
+        this.loginRole = loginRole;
     }
 }

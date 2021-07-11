@@ -25,7 +25,7 @@ public class TraderServiceTest {
         // Given trade details are provided.
         String tradeEmployeeId = "E123";
         TraderDetails tradeDetails = new TraderDetails(tradeEmployeeId, "Ram@gmail.com",
-                "rAm1234#");
+                "rAm1234#", "Trader");
 
         // when api is called to store trader details.
         traderService.signup(tradeDetails);

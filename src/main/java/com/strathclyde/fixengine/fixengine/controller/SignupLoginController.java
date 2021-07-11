@@ -3,8 +3,11 @@ package com.strathclyde.fixengine.fixengine.controller;
 import com.strathclyde.fixengine.fixengine.database.TraderService;
 import com.strathclyde.fixengine.fixengine.model.TraderDetails;
 import com.strathclyde.fixengine.fixengine.model.TraderLoginDetails;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.charset.StandardCharsets;
 
 
 /***
@@ -23,20 +26,25 @@ public class SignupLoginController {
         traderService.signup(traderDetails);
     }
 
-//    @GetMapping("/login")
-//    public void login(@RequestBody TraderLoginDetails traderLoginDetails) {
-//        System.out.println("Successful Login");
-//        traderService.login(traderLoginDetails);
-//    }
+    @GetMapping("/login")
+    public TraderLoginDetails login(@RequestHeader( "Authorization") String authHeader) {
+        System.out.println("Login with authHeader " + authHeader);
+        String base64Credentials = authHeader.substring("Basic".length()).trim();
+        byte[] credDecoded = Base64.decodeBase64(base64Credentials);
+        String credentials = new String(credDecoded, StandardCharsets.UTF_8);
+        final String[] values = credentials.split(":", 2);
+        TraderLoginDetails traderLoginDetails = traderService.login(values[0], values[1]);
+        return traderLoginDetails;
+    }
 
 //    @PostMapping("/submittrade")
 //    public void submitTrade(@RequestBody Trade trade) {
-//
+
 //    }
 //
 //    @GetMapping("/getOrderStatus")
 //    public OrderStatus getOrderStatus(@RequestParam("orderId") orderId) {
-//
+
 //    }
 
 }
