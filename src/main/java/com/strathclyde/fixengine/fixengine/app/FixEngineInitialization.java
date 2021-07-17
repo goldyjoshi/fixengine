@@ -68,6 +68,10 @@ public class FixEngineInitialization {
             MessageStoreFactory messageStoreFactory = new FileStoreFactory(sessionSettings);
 
 
+            /***
+             * There is if condition to check either application will start as initiator(trader) or acceptor(Broker)
+             * mode
+             */
             if(fixType.equalsIgnoreCase("initiator")) {
                 Initiator initiator = new SocketInitiator(application, messageStoreFactory,
                         sessionSettings, messageFactory);

@@ -1,14 +1,17 @@
 package com.strathclyde.fixengine.fixengine.model;
 
+/***
+ * This class represent the traderDetails and it fields.
+ */
 public class TraderDetails {
-    private String traderEmployeeId;
-    private String traderEmailId;
-    private String traderPassword;
-    private String loginRole;       // variable to store role during signup.
+    private String traderEmployeeId; // variable to store Employee Id during signup
+    private String traderEmailId; // variable to store Email Id during signup
+    private String traderPassword; // variable to store Password during signup
+    private String loginRole;  // variable to store role during signup.
 
     /***
      * This constructor is used to initialize the value of variable.
-     * @param traderEmployeeId to give value of trder employee Id.
+     * @param traderEmployeeId to give value of trader employee Id.
      * @param traderEmailId to give value of trader email Id.
      * @param traderPassword to give value of trader password
      */
@@ -28,26 +31,42 @@ public class TraderDetails {
         return traderEmployeeId;
     }
 
+    /***
+     * This setter method is used to set value of employee id
+     * @param traderEmployeeId variable to store traderEmployeeId
+     */
     public void setTraderEmployeeId(String traderEmployeeId) {
         this.traderEmployeeId = traderEmployeeId;
     }
 
     /***
-     * This getter method give value of trader em id.
-     * @return
+     * This getter method give value of Email id.
+     * @return traderEmailId of type String
      */
     public String getTraderEmailId() {
         return traderEmailId;
     }
 
+    /***
+     * This setter method is used to set value of employee email id.
+     * @param traderEmailId variable to store the employee email id
+     */
     public void setTraderEmailId(String traderEmailId) {
         this.traderEmailId = traderEmailId;
     }
 
+    /***
+     * This getter method is used to get value of employee password.
+     * @return traderPassword of type String
+     */
     public String getTraderPassword() {
         return traderPassword;
     }
 
+    /***
+     * This setter method is used to set value of employee password.
+     * @param traderPassword variable to store the password of employee
+     */
     public void setTraderPassword(String traderPassword) {
         this.traderPassword = traderPassword;
     }
@@ -62,7 +81,7 @@ public class TraderDetails {
 
     /***
      * This setter method is used to set value of loginRole.
-     * @param loginRole value
+     * @param loginRole variablt to store role of employee
      */
     public void setLoginRole(String loginRole) {
         this.loginRole = loginRole;
@@ -71,10 +90,9 @@ public class TraderDetails {
     @Override
     public String toString() {
         return "TraderDetails{" +
-                "traderEmployeeId='" + traderEmployeeId + '\'' +
-                ", traderEmailId='" + traderEmailId + '\'' +
-                ", traderPassword='" + traderPassword + '\'' +
-                ", loginRole='" + loginRole + '\'' +
-                '}';
+                "traderEmployeeId =" + traderEmployeeId + '\n' +
+                "traderEmailId =" + traderEmailId + '\n' +
+                "traderPassword =" + traderPassword + '\n' +
+                "loginRole =" + loginRole ;
     }
 }

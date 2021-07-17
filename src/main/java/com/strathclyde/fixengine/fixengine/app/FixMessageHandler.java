@@ -16,6 +16,9 @@ public class FixMessageHandler implements IFixMessageHandler {
     @Value("${app.fix.type}")
     private String fixType;
 
+    /***
+     * create an object of class OrderService.
+     */
     @Autowired
     private OrderService orderService;
 

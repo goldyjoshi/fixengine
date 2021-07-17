@@ -14,21 +14,42 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+/***
+ * This class represent the rest controller of Single order, is used to build REST api
+ * in a declarative way and provide the RESTFUL web service at runtime.
+ *  @author vijayshreejoshi
+ */
 @RestController
 public class SingleOrderController {
 
+    /***
+     * Using annotation Autowired declaring a variable of type OrderService.
+     */
     @Autowired
     private OrderService orderService;
 
+    /***
+     * Variable fixMessageService using annotation Autowired used to inject the dependent bean of FixMessageService.
+     */
     @Autowired
     private FixMessageService fixMessageService;
 
+    /***
+     * This method is used to submit order for single order on calling method of OrderService,
+     * FixMessageService. @PostMapping is used to handle the post type of request method
+     * @param singleOrderRequest represent the values of SingleOrderRequest.
+     */
     @PostMapping("/submitorder")
     public void submitOrder(@RequestBody SingleOrderRequest singleOrderRequest) {
         orderService.insertOrderInDatabase(singleOrderRequest);
         fixMessageService.createAndSendSingleOrderMessage(singleOrderRequest);
     }
 
+    /***
+     * This method is used to get list of single order request. @GetMapping is used to handle Get type of handle method
+     * by provided appropriate path.
+     * @return orderList of type SingleOrderRequest
+     */
     @GetMapping("/orders")
     public List<SingleOrderRequest> getOrders() {
         List<SingleOrderRequest> orderList = orderService.getOrders();
