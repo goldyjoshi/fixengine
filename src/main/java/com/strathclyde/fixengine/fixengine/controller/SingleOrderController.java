@@ -39,10 +39,14 @@ public class SingleOrderController {
      * FixMessageService. @PostMapping is used to handle the post type of request method
      * @param singleOrderRequest represent the values of SingleOrderRequest.
      */
-    @PostMapping("/submitorder")
-    public void submitOrder(@RequestBody SingleOrderRequest singleOrderRequest) {
-        orderService.insertOrderInDatabase(singleOrderRequest);
-        fixMessageService.createAndSendSingleOrderMessage(singleOrderRequest);
+    @PostMapping("/submit_order")
+    public Boolean submitOrder(@RequestBody SingleOrderRequest singleOrderRequest) {
+
+        Boolean status = fixMessageService.createAndSendSingleOrderMessage(singleOrderRequest);
+        if (status) {
+            orderService.insertOrderInDatabase(singleOrderRequest);
+        }
+        return status;
     }
 
     /***

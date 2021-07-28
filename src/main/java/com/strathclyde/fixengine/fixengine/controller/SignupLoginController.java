@@ -28,9 +28,10 @@ public class SignupLoginController {
      * @param traderDetails variable to store unique details of trader.
      */
     @PostMapping("/signup")
-    public void signup(@RequestBody TraderDetails traderDetails) {
+    public TraderDetails signup(@RequestBody TraderDetails traderDetails) {
         System.out.println("Trader details are " + traderDetails);
         traderService.signup(traderDetails);
+        return traderDetails;
     }
 
     /***

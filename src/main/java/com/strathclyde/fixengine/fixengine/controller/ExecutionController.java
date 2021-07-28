@@ -22,9 +22,11 @@ public class ExecutionController {
      * This method is used to send execution message having parameters all execution request information and object of
      * FixMessageService call the method and generate report on requested execution to UI.
      * @param executionRequest
+     * @return True if request is successful else return false.
      */
     @PostMapping("/execution")
-    public void sendExecution(@RequestBody ExecutionRequest executionRequest) {
-        fixMessageService.createAndSendExecutionReport(executionRequest);
+    public Boolean sendExecution(@RequestBody ExecutionRequest executionRequest) {
+        Boolean requestStatus = fixMessageService.createAndSendExecutionReport(executionRequest);
+        return requestStatus;
     }
 }
