@@ -65,6 +65,10 @@ public class OrderService {
         }
     }
 
+    /***
+     *
+     * @return
+     */
     public List<SingleOrderRequest> getOrders() {
         List<SingleOrderRequest> orderList = new ArrayList<>();
         List<Map<String, Object>> orderResultSet = getOrdersFromDatabase();
@@ -105,6 +109,10 @@ public class OrderService {
     }
 
 
+    /***
+     * This method is used to get orders list from database using sql injection
+     * @return orderResultSet
+     */
     private List<Map<String, Object>>  getOrdersFromDatabase() {
         String ordersSql = "select * from order_detail";
         List<Map<String, Object>> orderResultSet = jdbcTemplateForOrder.queryForList(ordersSql);

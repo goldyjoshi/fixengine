@@ -46,10 +46,6 @@ class ClientAccountControllerTest {
         } else {
             fail("Insertion of Account Id in the database has been failed ");
         }
-
-
-
-
     }
 
 }

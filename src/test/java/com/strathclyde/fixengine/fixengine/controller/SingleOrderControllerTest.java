@@ -11,15 +11,19 @@ import org.mockito.Mockito;
 import org.mockito.internal.matchers.Any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import quickfix.Message;
 import quickfix.Session;
 import quickfix.SessionNotFound;
 
+import java.util.List;
 import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class SingleOrderControllerTest {
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Mock
     private OrderService orderService;
@@ -52,7 +56,40 @@ public class SingleOrderControllerTest {
 
         SingleOrderRequest actualOrder = captureOrder.getValue();
 
-
     }
 
-}
+    @Test
+    public void getSingleOrderList()
+    {
+        String orderId = "TestOrderId";
+        String quantity = "TestQuantity";
+        String symbol = "TestSymbol";
+        String clientAccountId = "TestClientAccountId";
+        String orderDate = "TestOrderDate";
+        String orderStatus = "TestOrderStatus";
+        String side = "TestSide";
+        String quantityExecuted = "TestQuantityExecuted";
+        String insertSingleOrderController = "insert into  order_detail (order_id, quantity, symbol, client_account_Id, order_date," +
+                " order_status, side, quantity_executed) values(?, ?, ?, ?, ?, ?, ?, ?)";
+        int result = jdbcTemplate.update(insertSingleOrderController,orderId,quantity, symbol, clientAccountId, orderDate,
+                orderStatus,side, quantityExecuted );
+        if (result > 0) {
+            List<SingleOrderRequest> orderList = singleOrderController.getOrders();
+            assertTrue(orderList.contains(orderId));
+
+            String deleteSingleOrderSql = "delete from order_detail where order_id = ?";
+            int deleteStatus = jdbcTemplate.update(deleteSingleOrderSql, orderId);
+            if (deleteStatus > 0) {
+                System.out.println("Database clean up has been done successfully.");
+            } else {
+                fail("Failed to remove order from Database.");
+            }
+
+        } else {
+            fail("Insertion of order Id in the database has been failed ");
+        }
+
+        }
+    }
+
+

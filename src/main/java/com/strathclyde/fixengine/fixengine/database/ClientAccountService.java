@@ -8,12 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/***
+ * This class represent
+ */
 @Service
 public class ClientAccountService {
 
+    /***
+     * variable of type JdbcTemplate which execute SQL queries over ResultSets.
+     */
     @Autowired
     private JdbcTemplate jdbcTemplateForAccountRetrieval;
 
+    /***
+     * This method is used to get account by using for loop first on list of map and second on map of string and
+     *  object to find client account id.
+     * @return account list of type string
+     */
     public List<String> getAccountList() {
         List<String> accountList = new ArrayList<>();
         List<Map<String, Object>> resultList = retrieveAccountFromDatabase();
@@ -27,6 +38,10 @@ public class ClientAccountService {
         return accountList;
     }
 
+    /***
+     * This method is used to get data from database using sql injection.
+     * @return list of account
+     */
     private List<Map<String, Object>>  retrieveAccountFromDatabase() {
         String sql = "select client_account_id from client_account";
         List<Map<String, Object>> resultList = jdbcTemplateForAccountRetrieval.queryForList(sql);

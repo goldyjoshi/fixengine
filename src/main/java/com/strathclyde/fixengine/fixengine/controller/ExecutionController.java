@@ -7,14 +7,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/***
+ * This class represent the rest controller of Execution of order, is used to build REST api
+ *  in a declarative way and provide the RESTFUL web service at runtime.
+ * @author vijayshreejoshi
+ */
 @RestController
 public class ExecutionController {
 
     @Autowired
-    private FixMessageService fixMessageService;
+    private FixMessageService fixMessageService; //Variable to store the all values of FixMessageService
 
+    /***
+     * This method is used to send execution message having parameters all execution request information and object of
+     * FixMessageService call the method and generate report on requested execution to UI.
+     * @param executionRequest
+     * @return True if request is successful else return false.
+     */
     @PostMapping("/execution")
-    public void sendExecution(@RequestBody ExecutionRequest executionRequest) {
-        fixMessageService.createAndSendExecutionReport(executionRequest);
+    public Boolean sendExecution(@RequestBody ExecutionRequest executionRequest) {
+        Boolean requestStatus = fixMessageService.createAndSendExecutionReport(executionRequest);
+        return requestStatus;
     }
 }

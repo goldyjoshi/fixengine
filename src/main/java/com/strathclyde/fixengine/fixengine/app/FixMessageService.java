@@ -12,10 +12,19 @@ import quickfix.fix42.NewOrderSingle;
 
 import java.util.UUID;
 
+/***
+ * This class is to represent
+ */
 @Service
 public class FixMessageService {
 
-    public void createAndSendExecutionReport(final ExecutionRequest executionRequest) {
+    /***
+     * This method is used to generate the different execution report and send to another fix party.
+     * @param executionRequest
+     * @return True if request is successful else return false.
+     */
+    public Boolean createAndSendExecutionReport(final ExecutionRequest executionRequest) {
+        Boolean  submissionStatus = false;
         String incomingExecType = executionRequest.getExecType();
         char side = "BUY".equalsIgnoreCase(executionRequest.getSide()) ? Side.BUY : Side.SELL;
         char execType = ExecType.NEW;
@@ -55,14 +64,15 @@ public class FixMessageService {
         header.setField(new SenderCompID("INVESTMENT_BANK"));
         header.setField(new TargetCompID("STRATHCLYDE_FIXENGINE"));
         try {
-            Session.sendToTarget(executionReport);
+            submissionStatus = Session.sendToTarget(executionReport);
         } catch (SessionNotFound sessionNotFound) {
             sessionNotFound.printStackTrace();
         }
-
+        return submissionStatus;
     }
 
-    public void createAndSendSingleOrderMessage(final SingleOrderRequest singleOrderRequest) {
+    public boolean createAndSendSingleOrderMessage(final SingleOrderRequest singleOrderRequest) {
+        Boolean submissionStatus = false;
         char side = "BUY".equalsIgnoreCase(singleOrderRequest.getSide()) ? Side.BUY : Side.SELL;
         NewOrderSingle newOrderSingle = new NewOrderSingle(
                 new ClOrdID(singleOrderRequest.getOrderId()),
@@ -79,9 +89,10 @@ public class FixMessageService {
         newOrderSingle.setString(38, String.valueOf(singleOrderRequest.getQuantity()));
 
         try {
-            Session.sendToTarget(newOrderSingle);
+            submissionStatus = Session.sendToTarget(newOrderSingle);
         } catch (SessionNotFound sessionNotFound) {
             sessionNotFound.printStackTrace();
         }
+        return submissionStatus;
     }
 }
