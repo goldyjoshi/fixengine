@@ -1,6 +1,6 @@
 package com.strathclyde.fixengine.fixengine.controller;
 
-import com.strathclyde.fixengine.fixengine.database.SymbolService;
+import com.strathclyde.fixengine.fixengine.database.ISymbolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,13 +13,13 @@ import java.util.List;
  * @author vijayshreejoshi
  */
 @RestController
-public class SymbolController {
+public class SymbolController implements ISymbolController {
 
     /***
      * Variable symbolService using annotation Autowired used to inject the dependent bean of SymbolService
      */
     @Autowired
-    private SymbolService symbolService;
+    private ISymbolService symbolService;
 
     /***
      * This method is used to get list of symbols and @GetMapping is used to handle Get type of handle method

@@ -9,13 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 /***
- * This class represent
+ * This class represent ClientAccountService.
+ * @author vijayshreejoshi
  */
 @Service
-public class ClientAccountService {
+public class ClientAccountService implements IClientAccountService {
 
     /***
-     * variable of type JdbcTemplate which execute SQL queries over ResultSets.
+     * variable of type JdbcTemplate which execute SQL queries over ResultSets to retrieve the account
      */
     @Autowired
     private JdbcTemplate jdbcTemplateForAccountRetrieval;
@@ -39,7 +40,7 @@ public class ClientAccountService {
     }
 
     /***
-     * This method is used to get data from database using sql injection.
+     * This method is used to get data from database using sql query.
      * @return list of account
      */
     private List<Map<String, Object>>  retrieveAccountFromDatabase() {
@@ -47,6 +48,5 @@ public class ClientAccountService {
         List<Map<String, Object>> resultList = jdbcTemplateForAccountRetrieval.queryForList(sql);
         return resultList;
     }
-
 
 }

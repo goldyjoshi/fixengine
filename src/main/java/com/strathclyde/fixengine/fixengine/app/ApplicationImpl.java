@@ -1,15 +1,17 @@
 package com.strathclyde.fixengine.fixengine.app;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import quickfix.*;
 
 @Component
 public class ApplicationImpl implements Application {
 
-
     private FixMessageHandler fixMessageHandler;
 
+    /***
+     * To construct ApplicationImpl.
+     * @param fixMessageHandler to handle messages.
+     */
     public ApplicationImpl(final FixMessageHandler fixMessageHandler) {
         super();
         this.fixMessageHandler = fixMessageHandler;

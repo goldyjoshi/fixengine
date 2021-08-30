@@ -2,9 +2,13 @@ package com.strathclyde.fixengine.fixengine.app;
 
 import quickfix.Message;
 
+/***
+ * This interface used to implements abstraction of message handling.
+ * @author Vijayshreejoshi
+ */
 public interface IFixMessageHandler {
 
-    public void handleIncomingMessage(final Message incomingMessage);
-    public void handleOutgoingMessage(final Message outgoingMessage);
+    void handleIncomingMessage(final Message incomingMessage);
+    void handleOutgoingMessage(final Message outgoingMessage);
 
 }

@@ -1,9 +1,14 @@
 package com.strathclyde.fixengine.fixengine.model;
 
+import java.util.Objects;
+
 /***
- * This class represent the traderDetails and it fields.
+ * This class represent the traderDetails and it fields traderEmployeeId, traderEmailId, traderPassword,
+ * loginRole.
+ * @author vijayshreejoshi
  */
 public class TraderDetails {
+
     private String traderEmployeeId; // variable to store Employee Id during signup
     private String traderEmailId; // variable to store Email Id during signup
     private String traderPassword; // variable to store Password during signup
@@ -81,12 +86,16 @@ public class TraderDetails {
 
     /***
      * This setter method is used to set value of loginRole.
-     * @param loginRole variablt to store role of employee
+     * @param loginRole variable to store role of employee
      */
     public void setLoginRole(String loginRole) {
         this.loginRole = loginRole;
     }
 
+    /***
+     * String representation of class.
+     * @return value of all fields as a string.
+     */
     @Override
     public String toString() {
         return "TraderDetails{" +
@@ -95,4 +104,27 @@ public class TraderDetails {
                 "traderPassword =" + traderPassword + '\n' +
                 "loginRole =" + loginRole ;
     }
+
+    /***
+     * To compare quality of two object of TraderDetails.
+     * @param o to be compare
+     * @return true if two object are equal else false.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TraderDetails)) return false;
+        TraderDetails that = (TraderDetails) o;
+        return traderEmployeeId.equals(that.traderEmployeeId) && traderEmailId.equals(that.traderEmailId) && traderPassword.equals(that.traderPassword) && loginRole.equals(that.loginRole);
+    }
+
+    /***
+     * Generate unique code for each object.
+     * @return unique hashcode.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(traderEmployeeId, traderEmailId, traderPassword, loginRole);
+    }
+
 }

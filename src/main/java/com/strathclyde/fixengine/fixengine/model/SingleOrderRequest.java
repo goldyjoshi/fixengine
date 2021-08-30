@@ -1,18 +1,16 @@
 package com.strathclyde.fixengine.fixengine.model;
 
+import java.util.Objects;
+
 /***
- * This class represents the Single Order Request and its fields orderId, accountId, quantity, executedQuantity, status,
- * symbol, side
+ * This model class represents Single Order Request. It is child class of Request class.
  * @author vijayshreejoshi
  */
-public class SingleOrderRequest {
-    private String orderId; //Variable to store the unique value of order Id.
-    private String accountId; //Variable to store the unique value of account Id.
+public class SingleOrderRequest extends Request {
+
     private double quantity; //Variable to store the unique value of quantity of requested order.
     private double executedQuantity; //Variable to store the unique value of executed quantity of requested order.
     private String status; //Variable to represent the unique value of status of order.
-    private String symbol; //Variable to represent the unique value of symbol.
-    private String side; //Variable to represent the unique value of side(buy/sell).
 
     /***
      * This getter method is used to get executed quantity of order.
@@ -48,38 +46,6 @@ public class SingleOrderRequest {
     }
 
     /***
-     * This getter method is used to get Id of requested order.
-     * @return orderId of type String
-     */
-    public String getOrderId() {
-        return orderId;
-    }
-
-    /***
-     * This setter method is used to set value  requested order id.
-     * @param orderId variable to store order id
-     */
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    /***
-     * This getter method is used to get account Id of requested order.
-     * @return accountId of type String
-     */
-    public String getAccountId() {
-        return accountId;
-    }
-
-    /***
-     * This setter method is used to set value of account id whose order is requested.
-     * @param accountId variable to store Id of account who want to place an order
-     */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
-
-    /***
      * This getter method is used to get value of quantity requested order.
      * @return quantity of type double
      */
@@ -96,36 +62,42 @@ public class SingleOrderRequest {
     }
 
     /***
-     * This getter method is used to get value of symbol whose order is requested.
-     * @return symbol of String
+     * String representation of class.
+     * @return value of all fields as a string.
      */
-    public String getSymbol() {
-        return symbol;
+    @Override
+    public String toString() {
+        return "SingleOrderRequest{" +
+                "orderId='" + orderId + '\'' +
+                ", accountId='" + accountId + '\'' +
+                ", quantity=" + quantity +
+                ", executedQuantity=" + executedQuantity +
+                ", status='" + status + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", side='" + side + '\'' +
+                '}';
     }
 
     /***
-     * This setter method is used to set value of symbol whose order is requested.
-     * @param symbol variable to represent symbol name of String
+     * To compare quality of two object of SingleOrderRequest.
+     * @param o to be compare
+     * @return true if two object are equal else false.
      */
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SingleOrderRequest)) return false;
+        SingleOrderRequest that = (SingleOrderRequest) o;
+        return Double.compare(that.quantity, quantity) == 0 && Double.compare(that.executedQuantity, executedQuantity) == 0 && orderId.equals(that.orderId) && accountId.equals(that.accountId) && status.equals(that.status) && symbol.equals(that.symbol) && side.equals(that.side);
     }
 
     /***
-     * This getter method is used to get value of side either buy or sell.
-     * @return side(buy/sell) of type String
+     * Generate unique code for each object.
+     * @return unique hashcode.
      */
-    public String getSide() {
-        return side;
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderId, accountId, quantity, executedQuantity, status, symbol, side);
     }
-
-    /***
-     * This setter method is used to set value which represent side(Buy or Sell)
-     * @param side variable to represent side value(buy/sell).
-     */
-    public void setSide(String side) {
-        this.side = side;
-    }
-
 
 }

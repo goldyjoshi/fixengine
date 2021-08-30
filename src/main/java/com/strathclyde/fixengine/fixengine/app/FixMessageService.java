@@ -13,14 +13,15 @@ import quickfix.fix42.NewOrderSingle;
 import java.util.UUID;
 
 /***
- * This class is to represent
+ * This class is to represent the service of Fix engine like create single order.
+ * @author vijayshreejoshi
  */
 @Service
 public class FixMessageService {
 
     /***
      * This method is used to generate the different execution report and send to another fix party.
-     * @param executionRequest
+     * @param executionRequest variable to store execution report of  order.
      * @return True if request is successful else return false.
      */
     public Boolean createAndSendExecutionReport(final ExecutionRequest executionRequest) {
@@ -71,7 +72,12 @@ public class FixMessageService {
         return submissionStatus;
     }
 
-    public boolean createAndSendSingleOrderMessage(final SingleOrderRequest singleOrderRequest) {
+    /***
+     * This method is used to generate the single order message and send to another fix party.
+     * @param singleOrderRequest variable to store single order request.
+     * @return True if request is successful else return false.
+     */
+    public Boolean createAndSendSingleOrderMessage(final SingleOrderRequest singleOrderRequest) {
         Boolean submissionStatus = false;
         char side = "BUY".equalsIgnoreCase(singleOrderRequest.getSide()) ? Side.BUY : Side.SELL;
         NewOrderSingle newOrderSingle = new NewOrderSingle(
@@ -87,7 +93,6 @@ public class FixMessageService {
         header.setField(new TargetCompID("INVESTMENT_BANK"));
         newOrderSingle.setString(1, singleOrderRequest.getAccountId());
         newOrderSingle.setString(38, String.valueOf(singleOrderRequest.getQuantity()));
-
         try {
             submissionStatus = Session.sendToTarget(newOrderSingle);
         } catch (SessionNotFound sessionNotFound) {

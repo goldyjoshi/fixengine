@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author vijayshreejoshi
  */
 @RestController
-public class ExecutionController {
+public class ExecutionController implements IExecutionController {
 
     @Autowired
     private FixMessageService fixMessageService; //Variable to store the all values of FixMessageService

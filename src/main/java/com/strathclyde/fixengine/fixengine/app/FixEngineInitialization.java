@@ -1,11 +1,9 @@
 package com.strathclyde.fixengine.fixengine.app;
 
-//import org.graalvm.compiler.api.replacements.Snippet;
-import com.strathclyde.fixengine.fixengine.database.ClientAccountService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import quickfix.*;
 
 
@@ -25,19 +23,11 @@ public class FixEngineInitialization {
     @Autowired
     private FixMessageHandler fixMessageHandler;
 
-// @value not working with constructor because spring injecting value before creation of object.
-//    public FixEngineInitialization() {
-//        InputStream configurationAsStream = getConfigFromFile();
-//        startInitiator(configurationAsStream);
-//    }
-
     @PostConstruct
     public void init() {
         InputStream configurationAsStream = getConfigFromFile();
         startInitiator(configurationAsStream);
     }
-
-
 
     /***
      * This method is used to start an Fix connection in initiator mode.
@@ -72,7 +62,7 @@ public class FixEngineInitialization {
              * There is if condition to check either application will start as initiator(trader) or acceptor(Broker)
              * mode
              */
-            if(fixType.equalsIgnoreCase("initiator")) {
+            if (fixType.equalsIgnoreCase("initiator")) {
                 Initiator initiator = new SocketInitiator(application, messageStoreFactory,
                         sessionSettings, messageFactory);
                 initiator.start();

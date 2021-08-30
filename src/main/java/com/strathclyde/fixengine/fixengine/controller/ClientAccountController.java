@@ -1,6 +1,6 @@
 package com.strathclyde.fixengine.fixengine.controller;
 
-import com.strathclyde.fixengine.fixengine.database.ClientAccountService;
+import com.strathclyde.fixengine.fixengine.database.IClientAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,14 +13,13 @@ import java.util.List;
  * @author vijayshreejoshi
  */
 @RestController
-public class ClientAccountController {
+public class ClientAccountController implements IClientAccountController {
 
     /***
      * Variable to store value of ClientAccountService which perform all functionality of database.
      */
     @Autowired
-    private ClientAccountService clientAccountService;
-
+    private IClientAccountService clientAccountService;
 
     /***
      * This method is used to get list of all clients account.
