@@ -1,7 +1,7 @@
 package com.strathclyde.fixengine.fixengine.controller;
 
 import com.strathclyde.fixengine.fixengine.app.FixMessageService;
-import com.strathclyde.fixengine.fixengine.database.OrderService;
+import com.strathclyde.fixengine.fixengine.database.IOrderService;
 import com.strathclyde.fixengine.fixengine.model.SingleOrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /***
  * This class represent the rest controller of Single order, is used to build REST api
@@ -20,13 +17,13 @@ import java.util.UUID;
  *  @author vijayshreejoshi
  */
 @RestController
-public class SingleOrderController {
+public class SingleOrderController implements ISingleOrderController {
 
     /***
      * Using annotation Autowired declaring a variable of type OrderService.
      */
     @Autowired
-    private OrderService orderService;
+    private IOrderService orderService;
 
     /***
      * Variable fixMessageService using annotation Autowired used to inject the dependent bean of FixMessageService.
@@ -41,11 +38,8 @@ public class SingleOrderController {
      */
     @PostMapping("/submit_order")
     public Boolean submitOrder(@RequestBody SingleOrderRequest singleOrderRequest) {
-
+        orderService.insertOrderInDatabase(singleOrderRequest);
         Boolean status = fixMessageService.createAndSendSingleOrderMessage(singleOrderRequest);
-        if (status) {
-            orderService.insertOrderInDatabase(singleOrderRequest);
-        }
         return status;
     }
 

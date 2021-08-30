@@ -9,7 +9,11 @@ import quickfix.Message;
 import quickfix.field.MsgType;
 import quickfix.field.OrdStatus;
 
-
+/***
+ * This class is responsible to handle incoming message from another fix engine and handle activity after sending
+ * outgoing message to another fix engine.
+ * @author vijayshreejoshi
+ */
 @Service
 public class FixMessageHandler implements IFixMessageHandler {
 
@@ -22,7 +26,10 @@ public class FixMessageHandler implements IFixMessageHandler {
     @Autowired
     private OrderService orderService;
 
-
+    /***
+     * Method handle incoming message and update the status of order in the database.
+     * @param incomingMessage
+     */
     @Override
     public void handleIncomingMessage(Message incomingMessage) {
         if (fixType.equalsIgnoreCase("initiator")) {
@@ -69,6 +76,10 @@ public class FixMessageHandler implements IFixMessageHandler {
 
     }
 
+    /***
+     * Method handle outgoing message and update the status of order in the database.
+     * @param outgoingMessage
+     */
     @Override
     public void handleOutgoingMessage(Message outgoingMessage) {
         if (fixType.equalsIgnoreCase("initiator")) {
@@ -88,5 +99,13 @@ public class FixMessageHandler implements IFixMessageHandler {
 
         }
 
+    }
+
+    public String getFixType() {
+        return fixType;
+    }
+
+    public void setFixType(String fixType) {
+        this.fixType = fixType;
     }
 }

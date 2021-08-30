@@ -1,14 +1,13 @@
 package com.strathclyde.fixengine.fixengine.model;
 
+import java.util.Objects;
+
 /***
- * This class represent ExecutionRequest for single order and its fields.
+ * This class represent model for execution request. It is child class of Request class.
  * @author vijayshreejoshi
  */
-public class ExecutionRequest {
-    private String orderId; //Variable to store unique value of order Id.
-    private String accountId;//Variable to store unique value of account Id.
-    private String symbol; //Variable to store the names of symbol.
-    private String side; //To represent the trader side buy or sell
+public class ExecutionRequest extends Request {
+
     private double totalQuantity; //to represent the quantity of orders symbol.
     private double quantityRequestedForExec; // current request quantity for execution.
     private double previousExecQuantity;   // total of previously executed quantity.
@@ -48,38 +47,6 @@ public class ExecutionRequest {
     }
 
     /***
-     * This getter method give value of id of requested order.
-     * @return orderId of type String.
-     */
-    public String getOrderId() {
-        return orderId;
-    }
-
-    /***
-     * This setter method is used to set value of id of requested order.
-     * @param orderId variable to store the Id of order.
-     */
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    /***
-     * This getter method give value of account id whose order is requested.
-     * @return accountId of type String.
-     */
-    public String getAccountId() {
-        return accountId;
-    }
-
-    /***
-     * This setter method is used to set value of account id whose order is requested.
-     * @param accountId store the value of account Id.
-     */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
-
-    /***
      * This getter method give value of total quantity of requested order.
      * @return totalQuantity of type double.
      */
@@ -93,38 +60,6 @@ public class ExecutionRequest {
      */
     public void setTotalQuantity(double totalQuantity) {
         this.totalQuantity = totalQuantity;
-    }
-
-    /***
-     * This getter method give value of symbol(like facebook, amazon etc)
-     * @return symbol of type string
-     */
-    public String getSymbol() {
-        return symbol;
-    }
-
-    /***
-     * This setter method is used to set value of symbol(like facebook, amazon etc).
-     * @param symbol variable to represent the symbol
-     */
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    /***
-     * This getter method give value of side(Buy or Sell).
-     * @return side of type String
-     */
-    public String getSide() {
-        return side;
-    }
-
-    /***
-     * This setter method is used to set value of side(Buy or Sell).
-     * @param side variable to represent side(Buy/Sell).
-     */
-    public void setSide(String side) {
-        this.side = side;
     }
 
     /***
@@ -158,4 +93,46 @@ public class ExecutionRequest {
     public void setExecutionPrice(double executionPrice) {
         this.executionPrice = executionPrice;
     }
+
+    /***
+     * String representation of class.
+     * @return value of all fields as a string.
+     */
+    @Override
+    public String toString() {
+        return "ExecutionRequest{" +
+                "orderId='" + orderId + '\'' +
+                ", accountId='" + accountId + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", side='" + side + '\'' +
+                ", totalQuantity=" + totalQuantity +
+                ", quantityRequestedForExec=" + quantityRequestedForExec +
+                ", previousExecQuantity=" + previousExecQuantity +
+                ", executionPrice=" + executionPrice +
+                ", execType='" + execType + '\'' +
+                '}';
+    }
+
+    /***
+     * To compare quality of two object of ExecutionReport.
+     * @param o to be compare
+     * @return true if two object are equal else false.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ExecutionRequest)) return false;
+        ExecutionRequest that = (ExecutionRequest) o;
+        return Double.compare(that.totalQuantity, totalQuantity) == 0 && Double.compare(that.quantityRequestedForExec, quantityRequestedForExec) == 0 && Double.compare(that.previousExecQuantity, previousExecQuantity) == 0 && Double.compare(that.executionPrice, executionPrice) == 0 && orderId.equals(that.orderId) && accountId.equals(that.accountId) && symbol.equals(that.symbol) && side.equals(that.side) && execType.equals(that.execType);
+    }
+
+    /***
+     * Generate unique code for each object.
+     * @return unique hashcode.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderId, accountId, symbol, side, totalQuantity, quantityRequestedForExec, previousExecQuantity, executionPrice, execType);
+    }
+
 }

@@ -27,7 +27,6 @@ public class SymbolControllerTest {
     public void getSymbolListTest() {
         //Given a symbol exist in DB
         //Add one symbol in db
-
         String insertSymbol = "INSERT INTO symbol VALUES( ?, ?)";
         int result = jdbcTemplate.update(insertSymbol, symbolID, symbolName);
 //        update(insertSymbol, symbolID, symbolName);
@@ -51,8 +50,5 @@ public class SymbolControllerTest {
             fail("Failed to remove account from database.");
         }
     }
-
-
-
 
 }
